@@ -71,12 +71,11 @@ export function TasksPage() {
             return sortOrder === 'new' ? timeB - timeA : timeA - timeB;
         });
 
-    const serchedTask =
-        query.trim().toLowerCase() === ''
-                ? filteredTasks
-                : filteredTasks.filter(t => {
-                    if (t.title.includes(query.trim().toLowerCase())) return t;
-        });
+    const searchedTasks = query.trim().toLowerCase() === ''
+        ? filteredTasks
+        : filteredTasks.filter(t => 
+            t.title.toLowerCase().includes(query.trim().toLowerCase())
+        );
     const total = tasks.length;
     const completed = tasks.filter(t => t.complete).length;
     const percent = total === 0 ? 0: Math.round((completed / total) * 100);
@@ -106,7 +105,7 @@ export function TasksPage() {
             </RowContainer>
             <ProgressBar percent={percent}/>
             <TasksList 
-                tasks={serchedTask} 
+                tasks={searchedTasks} 
                 onRemove={handleRemoveItem} 
                 onEdit={t => setEditingTask(t)} 
                 onToggle = {handleToggleTask}
