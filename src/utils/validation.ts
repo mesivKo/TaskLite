@@ -1,5 +1,4 @@
-import { MAX_TITLE_LENGTH } from '../utils/constants';
-
+import { MAX_TITLE_LENGTH } from './constants';
 export function isValidTaskTitle(title: string) {
     return ((title.trim().length > 0) && (title.length <= MAX_TITLE_LENGTH));
 }

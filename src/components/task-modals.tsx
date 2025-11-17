@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import type { Task } from '../entitites/task';
-import { normalizeTitle } from '../utils/validation';
 import { StyledInput, StyledTextArea } from '../styles/Inputs';
 import { SmallRowContainer } from '../styles/Containers';
+import { normalizeTitle } from '../utils/validation';
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -94,10 +94,13 @@ export default function TaskModal(props: TaskModalProps) {
     }, [props]);
 
     function handleSave() {
+
+
         if (title.trim() === '') {
             return;
         }
-        
+    
+
         const updatedTask: Task = {
             ...props.task,
             title: normalizeTitle(title),
