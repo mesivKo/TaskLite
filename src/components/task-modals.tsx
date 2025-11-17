@@ -2,12 +2,8 @@ import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import type { Task } from '../entitites/task';
 import { normalizeTitle } from '../utils/validation';
-
-type TaskModalProps = {
-    task: Task;
-    onSave: (task: Task) => void;
-    onClose: () => void;
-};
+import { StyledInput, StyledTextArea } from '../styles/Inputs';
+import { SmallRowContainer } from '../styles/Containers';
 
 const ModalOverlay = styled.div`
     position: fixed;
@@ -26,79 +22,16 @@ const ModalContent = styled.div`
     background-color: ${p => p.theme.colors.background};
     border-radius: ${p => p.theme.radius.lg};
     padding: ${p => p.theme.spacing(3)};
+    display: flex;
+    gap: ${p => p.theme.spacing(2)};
+    flex-direction: column;
     width: 90%;
     max-width: 450px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     border: 1px solid ${p => p.theme.colors.border};
 `;
 
-const ModalHeader = styled.div`
-    margin-bottom: ${p => p.theme.spacing(2)};
-    
-    h2 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: black;
-        color: ${p => p.theme.colors.text};
-    }
-`;
-
-const FormElement = styled.div`
-    margin-bottom: ${p => p.theme.spacing(2)};
-    
-    label {
-        display: block;
-        margin-bottom: ${p => p.theme.spacing(0.5)};
-        font-size: ${p => p.theme.font.size.sm};
-        font-weight: ${p => p.theme.font.weight.medium};
-        color: ${p => p.theme.colors.text};
-    }
-`;
-
-const Input = styled.input`
-    width: 100%;
-    padding: ${p => p.theme.spacing(1)};
-    border: 1px solid ${p => p.theme.colors.border};
-    border-radius: ${p => p.theme.radius.sm};
-    font-size: ${p => p.theme.font.size.md};
-    font-family: ${p => p.theme.font.family};
-    background-color: ${p => p.theme.colors.surface};
-    color: ${p => p.theme.colors.text};
-    
-    &:focus {
-        outline: none;
-        border-color: ${p => p.theme.colors.accent};
-        box-shadow: 0 0 0 2px ${p => p.theme.colors.accent}20;
-    }
-`;
-
-const TextArea = styled.textarea`
-    width: 100%;
-    padding: ${p => p.theme.spacing(1)};
-    border: 1px solid ${p => p.theme.colors.border};
-    border-radius: ${p => p.theme.radius.sm};
-    font-size: ${p => p.theme.font.size.md};
-    font-family: ${p => p.theme.font.family};
-    background-color: ${p => p.theme.colors.surface};
-    color: ${p => p.theme.colors.text};
-    min-height: 80px;
-    resize: vertical;
-    
-    &:focus {
-        outline: none;
-        border-color: ${p => p.theme.colors.accent};
-        box-shadow: 0 0 0 2px ${p => p.theme.colors.accent}20;
-    }
-`;
-
-const ButtonGroup = styled.div`
-    display: flex;
-    gap: ${p => p.theme.spacing(1)};
-    justify-content: flex-end;
-    margin-top: ${p => p.theme.spacing(2)};
-`;
-
-const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
+const ModalButton = styled.button<{ variant?: 'primary' | 'secondary' }>`
     padding: ${p => p.theme.spacing(1)} ${p => p.theme.spacing(2)};
     border: 1px solid;
     border-radius: ${p => p.theme.radius.sm};
@@ -133,6 +66,18 @@ const Button = styled.button<{ variant?: 'primary' | 'secondary' }>`
         cursor: not-allowed;
     }
 `;
+
+const ButtonGroup = styled.div`
+    display: flex;
+    gap: ${p => p.theme.spacing(1)};
+    justify-content: flex-end;
+`;
+
+type TaskModalProps = {
+    task: Task;
+    onSave: (task: Task) => void;
+    onClose: () => void;
+};
 
 export default function TaskModal(props: TaskModalProps) {
     const [title, setTitle] = useState(props.task.title);
@@ -169,54 +114,48 @@ export default function TaskModal(props: TaskModalProps) {
     return (
         <ModalOverlay onClick={props.onClose}>
             <ModalContent onClick={(e) => e.stopPropagation()}>
-                <ModalHeader>
-                    <h2>Редактирование задачи</h2>
-                </ModalHeader>
+                <h2>Редактирование задачи</h2>
 
-                <FormElement>
-                    <Input
-                        id="title"
-                        onChange={e => setTitle(e.target.value)}
-                        value={title}
-                        type="text"
-                        placeholder="Название задачи"
-                        autoFocus
-                    />
-                </FormElement>
+                <StyledInput
+                    id="title"
+                    onChange={e => setTitle(e.target.value)}
+                    value={title}
+                    type="text"
+                    placeholder="Название задачи"
+                    autoFocus
+                />
 
-                <FormElement>
-                    <TextArea
-                        id="description"
-                        onChange={e => setDescription(e.target.value)}
-                        value={description}
-                        placeholder="Описание задачи"
-                    />
-                </FormElement>
+                <StyledTextArea
+                    id="description"
+                    onChange={e => setDescription(e.target.value)}
+                    value={description}
+                    placeholder="Описание задачи"
+                />
                 
-                <FormElement>
-                    <label htmlFor="deadline">Срок выполнения</label>
-                    <Input
+                <SmallRowContainer>
+                    <label htmlFor="deadline">Дедлайн:</label>
+                    <StyledInput
                         id="deadline"
                         type="date" 
                         value={deadline}
                         onChange={e => setDeadline(e.target.value)} 
                     />
-                </FormElement>
+                </SmallRowContainer>
                 
                 <ButtonGroup>
-                    <Button 
+                    <ModalButton 
                         variant="secondary" 
                         onClick={() => props.onClose()}
                     >
                         Отмена
-                    </Button>
-                    <Button 
-                        variant="primary" 
+                    </ModalButton>
+                    <ModalButton 
+                        variant="primary"  
                         onClick={handleSave}
                         disabled={isSaveDisabled}
                     >
                         Сохранить
-                    </Button>
+                    </ModalButton>
                 </ButtonGroup>
             </ModalContent>
         </ModalOverlay>

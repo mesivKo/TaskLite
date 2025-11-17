@@ -1,17 +1,7 @@
-import styled from '@emotion/styled';
 import {Button } from '../styles/Buttons';
 import { useState } from 'react';
 import { SmallRowContainer } from '../styles/Containers';
-
-export const StyledInput = styled.input`
-    flex: 1; 
-    min-width: 100px; 
-    padding: ${p => p.theme.spacing(1)};
-    border: 1px solid ${p => p.theme.colors.border};
-    border-radius: ${p => p.theme.radius.sm};
-    &:hover {
-    }
-`;
+import { StyledInput } from '../styles/Inputs';
 
 type TaskInputProp = {
     onAdd: (text: string) => void;

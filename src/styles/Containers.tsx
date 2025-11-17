@@ -37,6 +37,7 @@ export const RowContainer = styled.div`
 export const SmallRowContainer = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: ${p => p.theme.spacing(1)};
 `;
 

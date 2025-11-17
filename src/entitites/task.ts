@@ -1,5 +1,5 @@
-import { getRandomID } from '../utils/id.ts';
-import { isValidTaskTitle, normalizeTitle } from '../utils/validation.js';
+import { getRandomID } from '../utils/id';
+import { isValidTaskTitle, normalizeTitle } from '../utils/validation';
 
 export type Task = {
     readonly id: string;

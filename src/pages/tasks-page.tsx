@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { TasksList } from '../components/tasks-list';
 import { makeTask, type Task } from '../entitites/task';
-import TaskInput, { StyledInput } from '../components/task-input';
+import { StyledInput } from '../styles/Inputs';
 import { loadTasks, saveTasks } from '../entitites/storage';
 import TaskModal from '../components/task-modals';
 import ProgressBar from '../components/progress-bar';
 import { ClearButton, FilterButton, SortedButton } from '../styles/Buttons';
 import { RowContainer, SmallRowContainer, Wrapper } from '../styles/Containers';
+import TaskInput from '../components/task-input';
 
 
 

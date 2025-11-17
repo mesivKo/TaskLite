@@ -4,15 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { IconButton } from "../styles/Buttons";
 import { SmallColumnContainer, SmallRowContainer } from "../styles/Containers";
 
-
-type TaskItemProps = {
-    task: Task;
-    onRemove: (id: string) => void;
-    onEdit: (task: Task) => void;
-    onToggle: (id: string) => void;
-};
-
-
 const StyledItem = styled.div`
     display: flex;
     align-items: flex-start;
@@ -34,6 +25,13 @@ const TaskTitle = styled.h3<{complete:boolean}>`
     font-size: ${p => p.theme.font.size.md};
     text-decoration: ${p => (p.complete ? 'line-through': 'none')}
 `;
+
+type TaskItemProps = {
+    task: Task;
+    onRemove: (id: string) => void;
+    onEdit: (task: Task) => void;
+    onToggle: (id: string) => void;
+};
 
 
 export function TaskItem(props: TaskItemProps) {

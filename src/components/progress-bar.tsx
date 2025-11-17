@@ -1,9 +1,5 @@
 import styled from "@emotion/styled";
 
-type ProgressBarProps = {
-    percent: number;
-};
-
 const ProgressBarContainer = styled.div`
   display: flex;
   align-items: center;
@@ -25,6 +21,10 @@ const Progress = styled.div<{ percent: number }>`
     transition: width 0.45s;
     border-radius: ${p => p.theme.radius.lg};
 `;
+
+type ProgressBarProps = {
+    percent: number;
+};
 
 export default function ProgressBar(props: ProgressBarProps) {
     return(
